@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/index",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --runInBand"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --runInBand",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules npx jest --runInBand --watchAll"
   },
   "keywords": [],
   "author": "",
