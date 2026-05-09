@@ -9,7 +9,7 @@ describe("Reporter Test Suit", () => {
     });
 
     const multiple = 10;
-    const progress = reporter.progress();
+    const progress = reporter.progress(multiple);
     for (let i = 1; i < multiple; i++) {
       progress.write("1");
     }
