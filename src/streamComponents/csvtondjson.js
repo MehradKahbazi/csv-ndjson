@@ -45,10 +45,8 @@ export default class CSVToNDJSON extends Transform {
         NDJSONLine.push(`"${key}":"${value}"`);
       }
       if (!NDJSONLine.length) continue;
-      const NDJSONData = NDJSONLine.join(",");
-      yield Buffer.from(
-        "{".concat(NDJSONData).concat("}").concat(BREAK_LINE_SYMBOL),
-      );
+      const NDJSONData = NDJSONLine.join(',')
+      yield Buffer.from('{'.concat(NDJSONData).concat('}'). concat(BREAK_LINE_SYMBOL));
     }
   }
 
@@ -60,6 +58,11 @@ export default class CSVToNDJSON extends Transform {
   }
 
   _final(callback) {
+    if(!this.#buffer.length) return callback()
+
+      for(const item of this.#updateBuffer(Buffer.from(BREAK_LINE_SYMBOL))){
+        this.push(item)
+      }
     callback();
   }
 }
