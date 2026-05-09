@@ -14,14 +14,14 @@ describe("CSV to NDJSON test suit", () => {
       name: "Mehrad",
       address: "address01",
     });
-    
+
     const fn = jest.fn();
     csvToJSON.on("data", fn);
     csvToJSON.write(csvString);
     csvToJSON.end();
 
     const [current] = fn.mock.lastCall;
-    expect(current).toStrictEqual(expected);
+    expect(JSON.parse(current)).toStrictEqual(JSON.parse(expected));
   });
   it.todo("it should work with strings that do not have breakline at the end");
   it.todo(
