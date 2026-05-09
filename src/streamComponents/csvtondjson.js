@@ -13,8 +13,6 @@ export default class CSVToNDJSON extends Transform {
     callback(null, chunk);
   }
 
-  // when it finishes processing
-  // this.push(null) on the readable side
   _final(callback) {
     callback();
   }
