@@ -25,7 +25,6 @@ export default class CSVToNDJSON extends Transform {
       const lineToProcessIndex = breaklineIndex + BREAK_LINE_SYMBOL.length;
       const line = this.#buffer.subarray(0, lineToProcessIndex);
       const lineData = line.toString();
-      console.log(lineData);
 
       // remove from the main buffer data
       this.#buffer = this.#buffer.subarray(lineToProcessIndex);
@@ -40,13 +39,14 @@ export default class CSVToNDJSON extends Transform {
         const value = item.replace(BREAK_LINE_SYMBOL, "");
 
         if (key === value) break;
-        console.log({ key, value });
 
         NDJSONLine.push(`"${key}":"${value}"`);
       }
       if (!NDJSONLine.length) continue;
-      const NDJSONData = NDJSONLine.join(',')
-      yield Buffer.from('{'.concat(NDJSONData).concat('}'). concat(BREAK_LINE_SYMBOL));
+      const NDJSONData = NDJSONLine.join(",");
+      yield Buffer.from(
+        "{".concat(NDJSONData).concat("}").concat(BREAK_LINE_SYMBOL),
+      );
     }
   }
 
@@ -58,11 +58,11 @@ export default class CSVToNDJSON extends Transform {
   }
 
   _final(callback) {
-    if(!this.#buffer.length) return callback()
+    if (!this.#buffer.length) return callback();
 
-      for(const item of this.#updateBuffer(Buffer.from(BREAK_LINE_SYMBOL))){
-        this.push(item)
-      }
+    for (const item of this.#updateBuffer(Buffer.from(BREAK_LINE_SYMBOL))) {
+      this.push(item);
+    }
     callback();
   }
 }
